@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合同会社 YM company | 法人向け物流・配送・車両整備</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #0d0d0d;
+            color: #ffffff;
+            line-height: 1.8;
+        }
+
+        /* ナビゲーションバー */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #0d0d0d;
+            border-bottom: 2px solid #f5a623;
+            z-index: 1000;
+            padding: 0 40px;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .navbar-logo img {
+            height: 40px;
+            display: block;
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 50px;
+        }
+
+        .navbar-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .navbar-menu a:hover {
+            color: #f5a623;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background-color: #f5a623;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* セクション共通 */
+        section {
+            padding: 120px 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 48px;
+            color: #f5a623;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        /* HOME セクション */
+        #home {
+            margin-top: 70px;
+            padding-top: 100px;
+        }
+
+        .home-hero {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .home-hero img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .home-hero img:first-child {
+            max-width: 350px;
+        }
+
+        .home-hero img:last-child {
+            max-width: 400px;
+        }
+
+        .home-cta {
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #f5a623;
+            color: #ffffff;
+            padding: 16px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 0;
+            transition: opacity 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            opacity: 0.85;
+        }
+
+        /* BUSINESS セクション */
+        #business {
+            background-color: #0d0d0d;
+        }
+
+        .business-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .business-card {
+            background-color: #111111;
+            border: 1px solid #f5a623;
+            border-radius: 0;
+            padding: 50px 40px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .business-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .business-card h3 {
+            font-size: 24px;
+            color: #f5a623;
+            margin-bottom: 25px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .business-card p {
+            font-size: 16px;
+            line-height: 1.9;
+            color: #e0e0e0;
+        }
+
+        .business-card.wakos-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .business-card.wakos-card img {
+            max-width: 200px;
+            margin-bottom: 30px;
+        }
+
+        .business-card.wakos-card p {
+            font-size: 14px;
+            color: #cccccc;
+        }
+
+        /* COMPANY セクション */
+        #company {
+            background-color: #0d0d0d;
+        }
+
+        .company-table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+        }
+
+        .company-table tr {
+            border-bottom: 1px solid #f5a623;
+        }
+
+        .company-table td {
+            padding: 25px 30px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .company-table td:first-child {
+            color: #f5a623;
+            font-weight: 700;
+            width: 180px;
+            white-space: nowrap;
+        }
+
+        .company-table td:last-child {
+            color: #ffffff;
+        }
+
+        /* CONTACT セクション */
+        #contact {
+            background-color: #0d0d0d;
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .contact-message {
+            font-size: 24px;
+            margin-bottom: 50px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-label {
+            font-size: 16px;
+            color: #cccccc;
+            letter-spacing: 1px;
+        }
+
+        .contact-number {
+            font-size: 36px;
+            color: #f5a623;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: opacity 0.3s;
+        }
+
+        .contact-number:hover {
+            opacity: 0.8;
+        }
+
+        /* フッター */
+        footer {
+            background-color: #0d0d0d;
+            border-top: 2px solid #f5a623;
+            padding: 30px 40px;
+            text-align: center;
+            color: #cccccc;
+            font-size: 14px;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .navbar-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: #0d0d0d;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 50px;
+                gap: 30px;
+                transition: left 0.3s;
+                border-top: 2px solid #f5a623;
+            }
+
+            .navbar-menu.active {
+                left: 0;
+            }
+
+            .navbar-menu a {
+                font-size: 20px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            section {
+                padding: 80px 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+                margin-bottom: 50px;
+                letter-spacing: 2px;
+            }
+
+            .home-hero {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .home-hero img:first-child {
+                max-width: 280px;
+            }
+
+            .home-hero img:last-child {
+                max-width: 300px;
+            }
+
+            .cta-button {
+                padding: 14px 40px;
+                font-size: 16px;
+            }
+
+            .business-cards {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .business-card {
+                padding: 40px 30px;
+            }
+
+            .company-table {
+                font-size: 14px;
+            }
+
+            .company-table td {
+                padding: 20px 15px;
+                display: block;
+                width: 100%;
+            }
+
+            .company-table td:first-child {
+                padding-bottom: 5px;
+                border-bottom: none;
+            }
+
+            .company-table td:last-child {
+                padding-top: 5px;
+            }
+
+            .contact-message {
+                font-size: 20px;
+                margin-bottom: 40px;
+            }
+
+            .contact-number {
+                font-size: 28px;
+            }
+
+            footer {
+                padding: 25px 20px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="#home">
+                    <img src="https://www.genspark.ai/api/files/s/YW91jAt2" alt="YM COMPANY">
+                </a>
+            </div>
+            <ul class="navbar-menu" id="navMenu">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#business">BUSINESS</a></li>
+                <li><a href="#company">COMPANY</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOME セクション -->
+    <section id="home">
+        <div class="home-hero">
+            <img src="https://www.genspark.ai/api/files/s/d5kSEnt7" alt="トラックキャラクター">
+            <img src="https://www.genspark.ai/api/files/s/YW91jAt2" alt="YM COMPANY">
+        </div>
+        <div class="home-cta">
+            <a href="#contact" class="cta-button">📞 電話でのお問い合わせ</a>
+        </div>
+    </section>
+
+    <!-- BUSINESS セクション -->
+    <section id="business">
+        <h2 class="section-title">BUSINESS</h2>
+        <div class="business-cards">
+            <div class="business-card">
+                <h3>配送事業</h3>
+                <p>食品の安定供給を支える配送業務。緊急案件にも迅速に対応し、全国ネットワークで確実にお届けします。</p>
+            </div>
+            <div class="business-card">
+                <h3>車事業</h3>
+                <p>車両整備から板金塗装、コーティング施工まで幅広く対応。</p>
+            </div>
+            <div class="business-card wakos-card">
+                <img src="https://www.genspark.ai/api/files/s/Ndj4frT1" alt="WAKO'S">
+                <p>WAKO'S正規取扱店</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPANY セクション -->
+    <section id="company">
+        <h2 class="section-title">COMPANY</h2>
+        <table class="company-table">
+            <tr>
+                <td>会社名</td>
+                <td>合同会社 YM company</td>
+            </tr>
+            <tr>
+                <td>代表者</td>
+                <td>吉田 浩</td>
+            </tr>
+            <tr>
+                <td>所在地</td>
+                <td>〒566-0064 大阪府摂津市鳥飼中1丁目33-19-102</td>
+            </tr>
+            <tr>
+                <td>TEL</td>
+                <td>072-665-5509</td>
+            </tr>
+            <tr>
+                <td>FAX</td>
+                <td>072-665-5513</td>
+            </tr>
+            <tr>
+                <td>事業内容</td>
+                <td>配送事業・車事業・ワコーズ取扱店</td>
+            </tr>
+            <tr>
+                <td>対応エリア</td>
+                <td>全国</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- CONTACT セクション -->
+    <section id="contact">
+        <h2 class="section-title">CONTACT</h2>
+        <div class="contact-content">
+            <p class="contact-message">お気軽にお電話ください</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-label">TEL</span>
+                    <a href="tel:072-665-5509" class="contact-number">072-665-5509</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <p>&copy; 2024 合同会社 YM company. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // ハンバーガーメニュー
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // メニューリンククリック時にメニューを閉じる
+        const navLinks = document.querySelectorAll('.navbar-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // スクロール時にナビゲーションメニューを閉じる
+        window.addEventListener('scroll', () => {
+            if (navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
